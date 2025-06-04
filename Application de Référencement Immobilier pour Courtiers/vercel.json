@@ -1,0 +1,30 @@
+// Configuration pour le déploiement sur Vercel
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/frontend/package.json",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "src/backend/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "src/backend/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/frontend/$1"
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "@mongodb-uri",
+    "JWT_SECRET": "@jwt-secret",
+    "REFRESH_TOKEN_SECRET": "@refresh-token-secret",
+    "NODE_ENV": "production"
+  }
+}
